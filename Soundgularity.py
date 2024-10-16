@@ -9,7 +9,7 @@ import random
 SAMPLE_RATE = 44100
 BLOCK_SIZE = 2048
 DEVICE = None  # Use the default input device
-CHANNELS = 1   # Set to 2 if your microphone is stereo
+CHANNELS = 2   # Set to 2 if your microphone is stereo
 
 # Pygame configuration
 WIDTH = 800
@@ -17,11 +17,11 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-NUM_PARTICLES = 300
-MAX_ORBIT_RADIUS = 380
+NUM_PARTICLES = 500
+MAX_ORBIT_RADIUS = 400
 MIN_ORBIT_RADIUS = 50
-PARTICLE_SIZE = 2
-SMOOTHING_FACTOR = 0.2
+PARTICLE_SIZE = 3
+SMOOTHING_FACTOR = 0.5
 BLACK_HOLE_RADIUS = 30  # Radius of the black hole
 
 # Global variables
@@ -122,7 +122,7 @@ def visualize(screen, particles, data):
 
     # Increase reactivity
     audio_reactive_radius = (bass_magnitude - 0.3) * 5  # Adjusted sensitivity
-    audio_reactive_speed = 1 + treble_magnitude * 15     # Adjusted sensitivity
+    audio_reactive_speed = 1 + treble_magnitude * 30     # Adjusted sensitivity
 
     # Update and draw particles
     for particle in particles:
