@@ -4,7 +4,7 @@ Visualizing audio information using Python's pygame package. Should work with th
 
 **Frequencsphere** = a frequency visualizer wrapped in a circle that pulses and rotates.
 
-![image](https://github.com/user-attachments/assets/9a516a95-7bd0-42d9-b6b8-6eb17a88562d)
+![freq](https://github.com/user-attachments/assets/97d06373-141a-4595-a6b1-7f124d34c37b)
 
 **Soundgularity** = particles fall into a black hole to the audio.
 
