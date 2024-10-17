@@ -71,7 +71,7 @@ def initialize_pygame():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     print("Pygame display mode set successfully")
-    pygame.display.set_caption("Psychedelic Warp Drive Visualization")
+    pygame.display.set_caption("Hyperdrive")
     clock = pygame.time.Clock()
     print("Pygame initialized successfully")
     return screen, clock
