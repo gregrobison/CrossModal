@@ -28,6 +28,11 @@ Visualizing audio information using Python's pygame package. Should work with th
 
 **Neucleon** = an atomic nucleus pulsating to the music.
 
-![neucleon](https://github.com/user-attachments/assets/31dc63b3-0a82-4294-b4fc-312bb218c6ff)
+![nucleon](https://github.com/user-attachments/assets/908b38f5-d808-4e26-a7fd-c33db46c7e36)
+
+**Spirhythm** = waterfall illusion spiral and sprites.
+
+![spiral](https://github.com/user-attachments/assets/e9f623f4-291f-4594-a044-f98393a6a196)
+
 
 More to come!
