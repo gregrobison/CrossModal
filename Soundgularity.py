@@ -32,6 +32,7 @@ smoothed_magnitudes = np.zeros(BLOCK_SIZE // 2)
 class Particle:
     def __init__(self):
         self.reset_particle()
+        self.gravity_factor = 1  # Adjust this value to change gravity strength
 
     def reset_particle(self):
         self.angle = random.uniform(0, 2 * math.pi)
@@ -44,6 +45,9 @@ class Particle:
         # Update the angle based on speed
         self.angle += self.speed * audio_reactive_speed
         self.angle %= 2 * math.pi  # Keep angle within 0 to 2π
+
+        # Apply gravitational pull
+        self.radius -= self.gravity_factor * (self.radius / MAX_ORBIT_RADIUS)
 
         # Update radius based on audio input
         self.radius += audio_reactive_radius
@@ -121,8 +125,8 @@ def visualize(screen, particles, data):
     treble_magnitude = np.mean(smoothed_magnitudes[treble_freq_indices]) if len(treble_freq_indices) > 0 else 0
 
     # Increase reactivity
-    audio_reactive_radius = (bass_magnitude - 0.3) * 5  # Adjusted sensitivity
-    audio_reactive_speed = 1 + treble_magnitude * 30     # Adjusted sensitivity
+    audio_reactive_radius = (bass_magnitude - 0.3) * 10  # Adjusted sensitivity
+    audio_reactive_speed = 1 + treble_magnitude * 50     # Adjusted sensitivity
 
     # Update and draw particles
     for particle in particles:
