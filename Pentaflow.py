@@ -181,7 +181,7 @@ def visualize(screen, data):
     rotated_vertices = vertices_4d @ R.T
 
     # Project from 4D to 3D using perspective projection
-    distance_4d = 2  # Adjust this value to change 4D perspective
+    distance_4d = 2.1  # Adjust this value to change 4D perspective
     projected_3d = []
     for v in rotated_vertices:
         w = 1 / (distance_4d - v[3])  # Perspective division from 4D to 3D
@@ -192,7 +192,7 @@ def visualize(screen, data):
 
     # Project from 3D to 2D
     projected_2d = []
-    distance_3d = 2  # Adjust this value to change 3D perspective
+    distance_3d = 2.1  # Adjust this value to change 3D perspective
     fov = WIDTH / 2  # Field of view
     for v in projected_3d:
         w = 1 / (distance_3d - v[2])  # Perspective division from 3D to 2D

@@ -17,13 +17,13 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-SMOOTHING_FACTOR = 0.5
+SMOOTHING_FACTOR = 0.3
 MIN_FREQUENCY = 20
-MAX_FREQUENCY = 5000  # Increased frequency range
+MAX_FREQUENCY = 2000  # Increased frequency range
 
 # Rotation configuration
 ROTATION_BASE_SPEED = 0.001   # Base rotation speed
-ROTATION_MAX_SPEED = 0.02     # Maximum rotation speed
+ROTATION_MAX_SPEED = 0.03     # Maximum rotation speed
 ROTATION_SMOOTHING = 0.2      # Smoothing factor for rotation speed
 
 # Global variables
@@ -59,11 +59,11 @@ def generate_600_cell_vertices():
 
 # Since generating all 120 vertices and 720 edges is computationally intensive,
 # we'll limit the number of vertices to a manageable size for real-time visualization.
-vertices_4d = generate_600_cell_vertices()[:60]  # Use the first 60 vertices for performance
+vertices_4d = generate_600_cell_vertices()[:600]  # Use the first 60 vertices for performance
 
 # Generate edges between vertices that are a certain distance apart
 edges = []
-threshold = 0.4  # Adjust this threshold to control edge connections
+threshold = 0.5  # Adjust this threshold to control edge connections
 for i in range(len(vertices_4d)):
     for j in range(i + 1, len(vertices_4d)):
         distance = np.linalg.norm(vertices_4d[i] - vertices_4d[j])
@@ -206,7 +206,7 @@ def visualize(screen, data):
 
     # Project from 3D to 2D
     projected_2d = []
-    distance_3d = 2  # Decreased to make the object appear larger
+    distance_3d = 1.5  # Decreased to make the object appear larger
     fov = WIDTH     # Increased field of view
     for v in projected_3d:
         w = 1 / (distance_3d - v[2])  # Perspective division from 3D to 2D

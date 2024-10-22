@@ -22,7 +22,7 @@ MAX_FREQUENCY = 2000
 
 # Rotation configuration
 ROTATION_BASE_SPEED = 0.001   # Base rotation speed
-ROTATION_MAX_SPEED = 0.1     # Maximum rotation speed
+ROTATION_MAX_SPEED = 0.05     # Maximum rotation speed
 ROTATION_SMOOTHING = 0.2      # Smoothing factor for rotation speed
 
 # Global variables

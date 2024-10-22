@@ -108,7 +108,7 @@ def run_visualization(screen, font, index):
 
         # Ask user if they want to restart the visualization or return to menu
         screen.fill((0, 0, 0))
-        restart_text = font.render("Visualization ended. Press R to restart, or any other key to return to menu", True, (255, 255, 255))
+        restart_text = font.render("Press R to restart, or any other key for menu", True, (255, 255, 255))
         screen.blit(restart_text, (50, 400))
         pygame.display.flip()
 

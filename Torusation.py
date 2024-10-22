@@ -18,11 +18,11 @@ FPS = 60
 # Visualization configuration
 SMOOTHING_FACTOR = 0.5
 MIN_FREQUENCY = 20
-MAX_FREQUENCY = 2000
+MAX_FREQUENCY = 1000
 
 # Rotation configuration
 ROTATION_BASE_SPEED = 0.001   # Base rotation speed
-ROTATION_MAX_SPEED = 0.05      # Maximum rotation speed
+ROTATION_MAX_SPEED = 0.03      # Maximum rotation speed
 ROTATION_SMOOTHING = 0.2      # Smoothing factor for rotation speed
 
 # Global variables

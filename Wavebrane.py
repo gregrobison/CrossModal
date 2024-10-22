@@ -19,7 +19,7 @@ FPS = 60
 # Visualization configuration
 SMOOTHING_FACTOR = 0.2
 MIN_FREQUENCY = 20
-MAX_FREQUENCY = 2000
+MAX_FREQUENCY = 1000
 
 # Rotation configuration
 ROTATION_BASE_SPEED = 0.001
@@ -29,12 +29,12 @@ ROTATION_SMOOTHING = 0.2
 # Grid configuration
 GRID_SIZE = 20
 GRID_COLOR = (30, 30, 30)  # Darker grid lines
-LINE_WIDTH = 2
+LINE_WIDTH = 3
 
 # Psychedelic color configuration
 COLOR_SHIFT_SPEED = 0.05  # Slightly faster color shifting
-COLOR_INTENSITY_FACTOR = 3.0  # Increased color intensity
-SATURATION_BASE = 0.7  # Higher base saturation for stronger colors
+COLOR_INTENSITY_FACTOR = 5.0  # Increased color intensity
+SATURATION_BASE = 0.9  # Higher base saturation for stronger colors
 
 # Trail configuration
 TRAIL_LENGTH = 5  # Number of previous frames to keep in the trail
