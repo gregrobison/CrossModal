@@ -39,7 +39,7 @@ Run the launcher CrossModal.py to select visualizations.
 
 ![hexa](https://github.com/user-attachments/assets/9894e1b8-f720-43b9-8960-355250e96f2f)
 
-**Waveboard** = a vibrating and rotating plane
+**Wavebrane** = a vibrating and rotating plane.
 
 ![waveboard](https://github.com/user-attachments/assets/6d0acc0b-c667-42c6-accc-b0af8b7a4883)
 
