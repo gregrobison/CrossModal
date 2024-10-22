@@ -17,11 +17,11 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-NUM_PARTICLES = 500
+NUM_PARTICLES = 800
 MAX_ORBIT_RADIUS = 400
 MIN_ORBIT_RADIUS = 50
 PARTICLE_SIZE = 3
-SMOOTHING_FACTOR = 0.5
+SMOOTHING_FACTOR = 0.2
 BLACK_HOLE_RADIUS = 30  # Radius of the black hole
 
 # Global variables
@@ -37,7 +37,7 @@ class Particle:
     def reset_particle(self):
         self.angle = random.uniform(0, 2 * math.pi)
         self.radius = random.uniform(MIN_ORBIT_RADIUS, MAX_ORBIT_RADIUS)
-        self.speed = random.uniform(0.001, 0.005)
+        self.speed = random.uniform(0.001, 0.01)
         self.size = PARTICLE_SIZE
         self.orbit_center = (WIDTH // 2, HEIGHT // 2)
 

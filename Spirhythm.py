@@ -13,7 +13,7 @@ CHANNELS = 1   # Mono input for simplicity
 
 # Pygame configuration
 WIDTH = 800
-HEIGHT = 600
+HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
