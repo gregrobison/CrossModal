@@ -1,5 +1,6 @@
 # CrossModal
-Visualizing audio information using Python's pygame package. Should work with the default sound input device.
+Visualizing audio information using Python's pygame package and should work with the default sound input device.
+
 Run the launcher CrossModal.py to select visualizations.
 
 
@@ -37,7 +38,7 @@ Run the launcher CrossModal.py to select visualizations.
 
 **Hexacosmatrix** = pulsating hexacosichoron, also known as the 600-cell or kiss polytope.
 
-![hexa](https://github.com/user-attachments/assets/9894e1b8-f720-43b9-8960-355250e96f2f)
+![hex](https://github.com/user-attachments/assets/e30de8a8-59e5-40b7-9b65-3562419533a4)
 
 **Wavebrane** = a vibrating and rotating plane.
 
