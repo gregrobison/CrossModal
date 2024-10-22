@@ -1,5 +1,6 @@
 # CrossModal
 Visualizing audio information using Python's pygame package. Should work with the default sound input device.
+Run the launcher CrossModal.py to select visualizations.
 
 
 **Frequencsphere** = a frequency visualizer wrapped in a circle that pulses and rotates.
@@ -33,6 +34,26 @@ Visualizing audio information using Python's pygame package. Should work with th
 **Spirhythm** = waterfall illusion spiral and sprites.
 
 ![spiral](https://github.com/user-attachments/assets/e9f623f4-291f-4594-a044-f98393a6a196)
+
+**Hexacosmatrix** = pulsating hexacosichoron, also known as the 600-cell or kiss polytope.
+
+![hexa](https://github.com/user-attachments/assets/9894e1b8-f720-43b9-8960-355250e96f2f)
+
+**Waveboard** = a vibrating and rotating plane
+
+![waveboard](https://github.com/user-attachments/assets/6d0acc0b-c667-42c6-accc-b0af8b7a4883)
+
+**Mobiowave** = follow the curves of a Möbius strip.
+
+![mobiowave](https://github.com/user-attachments/assets/e9d6d1a7-886e-4b15-8ffe-87afce8e5c62)
+
+**Pentaflow** = pentachoron, also known as a 5-cell or 4-simplex.
+
+![pentaflow](https://github.com/user-attachments/assets/eb2d0f66-b8c7-4869-b353-de5209aca51e)
+
+**Torusation** = pulsating torus shape.
+
+![torusation](https://github.com/user-attachments/assets/6e112be6-5feb-42d2-9de5-f4ef150e1211)
 
 
 More to come!
