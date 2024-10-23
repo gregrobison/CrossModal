@@ -24,17 +24,13 @@ Run the launcher CrossModal.py to select visualizations.
 
 ![chromascope](https://github.com/user-attachments/assets/3e6879f3-ee55-4475-ae5b-582303e64ebc)
 
-**Droplet** = Matrix-like droplets of characters.
+**Beatoids** = emergent properties of 'boids flocking.
 
-![droplet](https://github.com/user-attachments/assets/52afa63b-bc32-41b0-88ac-88ee2d3b002f)
+![beatoids](https://github.com/user-attachments/assets/67b92ca8-192f-4524-9b17-b5d178a14133)
 
-**Neucleon** = an atomic nucleus pulsating to the music.
+**Torusation** = pulsating torus shape.
 
-![nucleon](https://github.com/user-attachments/assets/908b38f5-d808-4e26-a7fd-c33db46c7e36)
-
-**Spirhythm** = waterfall illusion spiral and sprites.
-
-![spiral](https://github.com/user-attachments/assets/e9f623f4-291f-4594-a044-f98393a6a196)
+![torusation](https://github.com/user-attachments/assets/6e112be6-5feb-42d2-9de5-f4ef150e1211)
 
 **Hexacosmatrix** = pulsating hexacosichoron, also known as the 600-cell or kiss polytope.
 
@@ -52,9 +48,16 @@ Run the launcher CrossModal.py to select visualizations.
 
 ![pentaflow](https://github.com/user-attachments/assets/eb2d0f66-b8c7-4869-b353-de5209aca51e)
 
-**Torusation** = pulsating torus shape.
+**Droplet** = Matrix-like droplets of characters.
 
-![torusation](https://github.com/user-attachments/assets/6e112be6-5feb-42d2-9de5-f4ef150e1211)
+![droplet](https://github.com/user-attachments/assets/52afa63b-bc32-41b0-88ac-88ee2d3b002f)
 
+**Neucleon** = an atomic nucleus pulsating to the music.
+
+![nucleon](https://github.com/user-attachments/assets/908b38f5-d808-4e26-a7fd-c33db46c7e36)
+
+**Spirhythm** = waterfall illusion spiral and sprites.
+
+![spiral](https://github.com/user-attachments/assets/e9f623f4-291f-4594-a044-f98393a6a196)
 
 More to come!
