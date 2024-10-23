@@ -17,6 +17,7 @@ import Chromascope
 import Wavebrane
 import Droplet
 import Neucleon
+import Beatoids
 
 # List of visualizations to choose from
 visualizations = [
@@ -24,6 +25,7 @@ visualizations = [
     ("Pulsaract", Pulsaract.main),
     ("Soundgularity", Soundgularity.main),
     ("Hyperdrive", Hyperdrive.main),
+    ("Beatoids", Beatoids.main),
     ("Torusation", Torusation.main),
     ("Hexacosmatrix", Hexacosmatrix.main),
     ("Pentaflow", Pentaflow.main),
@@ -43,7 +45,7 @@ def display_menu(screen, font):
         screen.blit(title, (250, 50))
 
         for i, (name, _) in enumerate(visualizations):
-            color = (255, 255, 255) if i == selected_index else (150, 150, 150)
+            color = (0, 191, 255) if i == selected_index else (150, 150, 150)  # Changed this line
             text = font.render(name, True, color)
             screen.blit(text, (300, 150 + i * 40))
 
