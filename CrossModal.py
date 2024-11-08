@@ -18,21 +18,23 @@ import Wavebrane
 import Droplet
 import Neucleon
 import Beatoids
+import Peakistory
 
 # List of visualizations to choose from
 visualizations = [
     ("Frequencsphere", Frequencsphere.main),
+    ("Hexacosmatrix", Hexacosmatrix.main),
     ("Pulsaract", Pulsaract.main),
     ("Soundgularity", Soundgularity.main),
-    ("Hyperdrive", Hyperdrive.main),
     ("Beatoids", Beatoids.main),
+    ("Hyperdrive", Hyperdrive.main),
     ("Torusation", Torusation.main),
-    ("Hexacosmatrix", Hexacosmatrix.main),
-    ("Pentaflow", Pentaflow.main),
+    ("Peakistory", Peakistory.main),
+    ("Wavebrane", Wavebrane.main),
     ("Mobiowave", Mobiowave.main),
+    ("Pentaflow", Pentaflow.main),
     ("Spirhythm", Spirhythm.main),
     ("Chromascope", Chromascope.main),
-    ("Wavebrane", Wavebrane.main),
     ("Droplet", Droplet.main),
     ("Neucleon", Neucleon.main)
 ]
