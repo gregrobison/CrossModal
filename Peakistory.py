@@ -11,7 +11,7 @@ CHANNELS = 2   # Set to 2 if your microphone is stereo
 
 # Pygame configuration
 WIDTH = 800
-HEIGHT = 600
+HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
