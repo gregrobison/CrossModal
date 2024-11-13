@@ -19,6 +19,7 @@ import Droplet
 import Neucleon
 import Beatoids
 import Peakistory
+import Discoballer
 
 # List of visualizations to choose from
 visualizations = [
@@ -31,6 +32,7 @@ visualizations = [
     ("Torusation", Torusation.main),
     ("Peakistory", Peakistory.main),
     ("Wavebrane", Wavebrane.main),
+    ("Discoballer", Discoballer.main),
     ("Mobiowave", Mobiowave.main),
     ("Pentaflow", Pentaflow.main),
     ("Spirhythm", Spirhythm.main),
