@@ -19,7 +19,10 @@ import Droplet
 import Neucleon
 import Beatoids
 import Peakistory
-import Discoballer
+import Apollonian
+import Mandalalalala
+import Tetrahedrone
+import Treedeejay
 
 # List of visualizations to choose from
 visualizations = [
@@ -30,28 +33,36 @@ visualizations = [
     ("Beatoids", Beatoids.main),
     ("Hyperdrive", Hyperdrive.main),
     ("Torusation", Torusation.main),
+    ("Mandalalalala", Mandalalalala.main),
+    ("Tetrahedrone", Tetrahedrone.main),
+    ("Apollonian", Apollonian.main),
     ("Peakistory", Peakistory.main),
     ("Wavebrane", Wavebrane.main),
-    ("Discoballer", Discoballer.main),
+    ("Neucleon", Neucleon.main),
     ("Mobiowave", Mobiowave.main),
     ("Pentaflow", Pentaflow.main),
+    ("Treedeejay", Treedeejay.main),
     ("Spirhythm", Spirhythm.main),
     ("Chromascope", Chromascope.main),
-    ("Droplet", Droplet.main),
-    ("Neucleon", Neucleon.main)
+    ("Droplet", Droplet.main)
 ]
 
 def display_menu(screen, font):
     selected_index = 0
+    
+    # Create a smaller font for the list items
+    small_font = pygame.font.Font(None, 24)  # Adjust the size (24) as needed
+
     while True:
         screen.fill((0, 0, 0))
         title = font.render("Select a Visualization", True, (255, 255, 255))
         screen.blit(title, (250, 50))
 
         for i, (name, _) in enumerate(visualizations):
-            color = (0, 191, 255) if i == selected_index else (150, 150, 150)  # Changed this line
-            text = font.render(name, True, color)
-            screen.blit(text, (300, 150 + i * 40))
+            color = (0, 191, 255) if i == selected_index else (150, 150, 150)
+            # Use the smaller font for list items
+            text = small_font.render(name, True, color)
+            screen.blit(text, (300, 150 + i * 30))  # Adjusted vertical spacing
 
         pygame.display.flip()
 
