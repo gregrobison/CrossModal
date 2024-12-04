@@ -18,15 +18,15 @@ FPS = 60
 # Visualization configuration
 DISCO_BALL_RADIUS = 200
 NUM_LATITUDE = 20  # Number of horizontal divisions
-NUM_LONGITUDE = 40  # Number of vertical divisions
-SMOOTHING_FACTOR = 0.2
+NUM_LONGITUDE = 30  # Number of vertical divisions
+SMOOTHING_FACTOR = 0.3  # Reduced for faster response
 
 # Global variables
 audio_data = np.zeros(BLOCK_SIZE)
 smoothed_magnitudes = np.zeros(BLOCK_SIZE // 2)
 
 # Camera configuration
-CAMERA_DISTANCE = 600  # Distance from the camera to the center of the sphere
+CAMERA_DISTANCE = 400  # Distance from the camera to the center of the sphere
 FOV = 500  # Field of view for perspective projection
 
 # Panel class
@@ -40,7 +40,8 @@ class Panel:
 
         # Initial position in 3D space
         self.x, self.y, self.z = self.spherical_to_cartesian(DISCO_BALL_RADIUS, theta, phi)
-        self.vertices = self.create_panel_vertices()
+        self.initial_vertices = self.create_panel_vertices()
+        self.vertices = [v.copy() for v in self.initial_vertices]
 
     def spherical_to_cartesian(self, r, theta, phi):
         x = r * math.sin(theta) * math.cos(phi)
@@ -58,20 +59,27 @@ class Panel:
             theta = self.theta + dtheta
             phi = self.phi + dphi
             x, y, z = self.spherical_to_cartesian(DISCO_BALL_RADIUS, theta, phi)
-            vertices.append([x, y, z])
+            vertices.append(np.array([x, y, z]))
         return vertices
 
-    def update(self, rotation_matrix, magnitudes):
-        # Update position by applying rotation
-        self.vertices = [np.dot(rotation_matrix, v) for v in self.vertices]
+    def update(self, rotation_matrix, magnitudes, frequencies):
+        # Apply rotation to initial vertices
+        self.vertices = [np.dot(rotation_matrix, v) for v in self.initial_vertices]
 
-        # Get average magnitude for assigned frequencies
+        # Get average magnitude and frequency for assigned frequencies
         magnitude = np.mean(magnitudes[self.frequency_indices])
+        avg_frequency = np.mean(frequencies[self.frequency_indices])
 
-        # Map magnitude to color using HSV color space
-        hue = (self.frequency_indices[0] / len(magnitudes)) * 360  # Map frequency to hue
+        # Map frequency to color
+        min_freq = 20  # Human hearing range minimum
+        max_freq = SAMPLE_RATE / 2  # Nyquist frequency
+        normalized_freq = (avg_frequency - min_freq) / (max_freq - min_freq)
+        normalized_freq = max(0, min(1, normalized_freq))  # Clamp between 0 and 1
+        hue = normalized_freq * 360  # Map normalized frequency to hue (0 to 360 degrees)
+
         saturation = 100  # Full saturation
-        value = min(100, max(30, magnitude * 150))  # Brightness based on magnitude
+        value = min(100, max(0, magnitude * 200))  # Adjusted for higher sensitivity
+
         self.color.hsva = (hue, saturation, value, 100)
 
     def project(self, vertex):
@@ -120,7 +128,6 @@ def visualize(screen, panels, data):
     # Calculate FFT
     fft_data = np.fft.fft(data)
     fft_magnitude = np.abs(fft_data[:len(data)//2])
-    fft_frequency = np.fft.fftfreq(len(data), 1/SAMPLE_RATE)[:len(data)//2]
 
     # Normalize and smooth FFT magnitude
     max_magnitude = np.max(fft_magnitude)
@@ -134,29 +141,39 @@ def visualize(screen, panels, data):
 
     # Calculate rotation speed based on overall magnitude
     overall_magnitude = np.mean(smoothed_magnitudes)
-    rotation_speed = overall_magnitude * 0.1  # Adjust sensitivity
+    rotation_speed_multiplier = 0.5  # Increased for higher sensitivity
+    rotation_speed = max(0.1, overall_magnitude * rotation_speed_multiplier)
 
-    # Create rotation matrices
-    angle = rotation_speed
-    cos_angle = math.cos(angle)
-    sin_angle = math.sin(angle)
+    # Get the current time in seconds
+    current_time = pygame.time.get_ticks() / 1000.0
+    # Compute rotation angles based on time and audio magnitude
+    angle_x = current_time * rotation_speed * 0.5  # Adjust as needed
+    angle_y = current_time * rotation_speed
 
-    # Rotate around Y-axis and X-axis for better effect
+    # Create rotation matrices based on angles
+    cos_angle_x = math.cos(angle_x)
+    sin_angle_x = math.sin(angle_x)
+    cos_angle_y = math.cos(angle_y)
+    sin_angle_y = math.sin(angle_y)
+
     rotation_matrix_y = np.array([
-        [cos_angle, 0, sin_angle],
+        [cos_angle_y, 0, sin_angle_y],
         [0, 1, 0],
-        [-sin_angle, 0, cos_angle]
+        [-sin_angle_y, 0, cos_angle_y]
     ])
     rotation_matrix_x = np.array([
         [1, 0, 0],
-        [0, cos_angle, -sin_angle],
-        [0, sin_angle, cos_angle]
+        [0, cos_angle_x, -sin_angle_x],
+        [0, sin_angle_x, cos_angle_x]
     ])
     rotation_matrix = np.dot(rotation_matrix_x, rotation_matrix_y)
 
+    # Precompute frequencies for mapping colors
+    frequencies = np.linspace(0, SAMPLE_RATE / 2, len(smoothed_magnitudes))
+
     # Update and draw panels
     for panel in panels:
-        panel.update(rotation_matrix, smoothed_magnitudes)
+        panel.update(rotation_matrix, smoothed_magnitudes, frequencies)
         panel.draw(screen)
 
 def main():
@@ -173,7 +190,8 @@ def main():
         theta = math.pi * (i + 0.5) / NUM_LATITUDE  # Avoid poles
         for j in range(NUM_LONGITUDE):
             phi = 2 * math.pi * j / NUM_LONGITUDE
-            start_idx = (i * NUM_LONGITUDE + j) * frequency_bins_per_panel
+            panel_index = i * NUM_LONGITUDE + j
+            start_idx = panel_index * frequency_bins_per_panel
             end_idx = start_idx + frequency_bins_per_panel
             frequency_indices = np.arange(start_idx, min(end_idx, num_frequency_bins))
             panel = Panel(theta, phi, frequency_indices)

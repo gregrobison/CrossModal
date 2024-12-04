@@ -23,6 +23,7 @@ import Apollonian
 import Mandalalalala
 import Tetrahedrone
 import Treedeejay
+import Discoballer
 
 # List of visualizations to choose from
 visualizations = [
@@ -36,6 +37,7 @@ visualizations = [
     ("Mandalalalala", Mandalalalala.main),
     ("Tetrahedrone", Tetrahedrone.main),
     ("Apollonian", Apollonian.main),
+    ("Discoballer", Discoballer.main),
     ("Peakistory", Peakistory.main),
     ("Wavebrane", Wavebrane.main),
     ("Neucleon", Neucleon.main),
