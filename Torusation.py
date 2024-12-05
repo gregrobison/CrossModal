@@ -16,9 +16,9 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-SMOOTHING_FACTOR = 0.5
-MIN_FREQUENCY = 20
-MAX_FREQUENCY = 1000
+SMOOTHING_FACTOR = 0.3
+MIN_FREQUENCY = 100
+MAX_FREQUENCY = 1500
 
 # Rotation configuration
 ROTATION_BASE_SPEED = 0.001   # Base rotation speed

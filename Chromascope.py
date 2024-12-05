@@ -16,7 +16,7 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-SMOOTHING_FACTOR = 0.5
+SMOOTHING_FACTOR = 0.3
 
 # Global variables
 audio_data = np.zeros(BLOCK_SIZE)
@@ -66,7 +66,7 @@ def visualize(screen, data):
     screen.fill((0, 0, 0))
 
     # Number of segments in the kaleidoscope
-    num_segments = 16
+    num_segments = 8
     angle_per_segment = 2 * math.pi / num_segments
 
     # Generate base pattern
@@ -76,7 +76,7 @@ def visualize(screen, data):
     # Draw shapes based on audio frequencies
     for i, (mag, freq) in enumerate(zip(smoothed_magnitudes, fft_frequency)):
         if mag > 0.1:  # Threshold to reduce noise
-            radius = mag * (WIDTH // 4)
+            radius = mag * (WIDTH // 2)
             angle = angle_offset + freq / (SAMPLE_RATE / 2) * 2 * math.pi
             x = center[0] + radius * math.cos(angle)
             y = center[1] + radius * math.sin(angle)

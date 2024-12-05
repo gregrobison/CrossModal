@@ -16,7 +16,7 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-SMOOTHING_FACTOR = 0.3
+SMOOTHING_FACTOR = 0.2
 MIN_FREQUENCY = 20
 MAX_FREQUENCY = 2000
 
@@ -81,7 +81,7 @@ def draw_fractal_tree(screen, x, y, angle, depth, max_depth, length, base_thickn
     pygame.draw.line(screen, color, (x, y), (end_x, end_y), thickness)
 
     # Recursive calls for the two new branches
-    new_depth = depth + 1
+    new_depth = depth + 2
     angle_variation = 0.5  # Base angle variation
     angle_variation += mag * 0.5  # Angle variation influenced by magnitude
     new_length = branch_length * 0.7  # Shorten the branch for next depth
@@ -119,14 +119,14 @@ def visualize(screen, data):
     time_offset = time.time() * 50  # Adjust speed of color cycling
 
     # Prepare frequencies and magnitudes for the tree
-    num_levels = 10  # Adjust for tree depth complexity
+    num_levels = 20  # Adjust for tree depth complexity
     freq_indices = np.linspace(0, len(smoothed_magnitudes) - 1, num_levels, dtype=int)
     tree_magnitudes = smoothed_magnitudes[freq_indices]
     tree_frequencies = fft_frequency[freq_indices]
 
     # Initial tree parameters
-    base_length = 100 + overall_magnitude * 200  # Base length influenced by audio magnitude
-    base_thickness = 10  # Starting thickness of the trunk
+    base_length = 250 + overall_magnitude * 300  # Base length influenced by audio magnitude
+    base_thickness = 15  # Starting thickness of the trunk
     start_x = WIDTH / 2
     start_y = HEIGHT  # Start from the bottom center
     start_angle = math.pi / 2  # Start pointing upwards

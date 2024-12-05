@@ -18,7 +18,7 @@ FPS = 60
 # Visualization configuration
 SMOOTHING_FACTOR = 0.5
 MIN_FREQUENCY = 20
-MAX_FREQUENCY = 2000
+MAX_FREQUENCY = 1000
 
 # Global variables
 audio_data = np.zeros(BLOCK_SIZE)

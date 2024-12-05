@@ -16,14 +16,19 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-SMOOTHING_FACTOR = 0.5
+SMOOTHING_FACTOR = 0.3
 MIN_FREQUENCY = 20
-MAX_FREQUENCY = 2000
+MAX_FREQUENCY = 1000
 
 # Rotation configuration
-ROTATION_BASE_SPEED = 0.001   # Base rotation speed
+ROTATION_BASE_SPEED = 0.002   # Base rotation speed
 ROTATION_MAX_SPEED = 0.05     # Maximum rotation speed
 ROTATION_SMOOTHING = 0.2      # Smoothing factor for rotation speed
+
+# Vibration configuration
+VIBRATION_AMPLITUDE = 20  # Maximum vibration amplitude in pixels
+THICKNESS_BASE = 5  # Base thickness of the lines
+THICKNESS_SCALE = 30  # Scale factor for thickness variation
 
 # Global variables
 audio_data = np.zeros(BLOCK_SIZE)
@@ -126,6 +131,8 @@ def rotation_matrix_4d(angle_xy=0, angle_xz=0, angle_xw=0, angle_yz=0, angle_yw=
 def visualize(screen, data):
     global smoothed_magnitudes, rotation_angle, rotation_speed, smoothed_rotation_speed, vertices_4d
 
+    current_time = time.time()  # Get the current time for time-based vibration
+
     # Calculate FFT
     fft_data = np.fft.fft(data)
     fft_magnitude = np.abs(fft_data[:len(data)//2])
@@ -144,12 +151,9 @@ def visualize(screen, data):
     bass_freq_indices = np.where((fft_frequency >= 20) & (fft_frequency <= 200))[0]
     bass_magnitude = np.mean(smoothed_magnitudes[bass_freq_indices]) if len(bass_freq_indices) > 0 else 0
 
-    # Map bass magnitude to rotation speed
     rotation_speed = ROTATION_BASE_SPEED + (bass_magnitude * (ROTATION_MAX_SPEED - ROTATION_BASE_SPEED))
-    # Smooth the rotation speed to prevent abrupt changes
     smoothed_rotation_speed = (ROTATION_SMOOTHING * rotation_speed) + ((1 - ROTATION_SMOOTHING) * smoothed_rotation_speed)
-
-    rotation_angle += smoothed_rotation_speed  # Update rotation angle with smoothed speed
+    rotation_angle += smoothed_rotation_speed
 
     # Create fading effect
     fade_surface = pygame.Surface((WIDTH, HEIGHT))
@@ -162,20 +166,20 @@ def visualize(screen, data):
     # Rotate the tesseract vertices
     angle = rotation_angle
     R = rotation_matrix_4d(
-        angle_xy=angle * 0.5,
+        angle_xy=angle * 0.2,
         angle_xz=angle * 0.3,
         angle_xw=angle * 0.2,
         angle_yz=angle * 0.4,
         angle_yw=angle * 0.1,
-        angle_zw=angle * 0.6
+        angle_zw=angle * 0.2
     )
-    rotated_vertices = vertices_4d @ R.T  # Transpose because we want to multiply from the left
+    rotated_vertices = vertices_4d @ R.T
 
     # Project from 4D to 3D
-    distance = 3  # Adjust this value to change perspective
+    distance = 3
     projected_3d = []
     for v in rotated_vertices:
-        w = 1 / (distance - v[3])  # Perspective division
+        w = 1 / (distance - v[3])
         x = v[0] * w
         y = v[1] * w
         z = v[2] * w
@@ -184,7 +188,7 @@ def visualize(screen, data):
     # Project from 3D to 2D
     projected_2d = []
     for v in projected_3d:
-        fov = WIDTH / 2  # Field of view
+        fov = WIDTH / 2
         x = int(center[0] + v[0] * fov)
         y = int(center[1] + v[1] * fov)
         projected_2d.append([x, y])
@@ -195,13 +199,22 @@ def visualize(screen, data):
     edge_magnitudes = smoothed_magnitudes[freq_indices]
     edge_frequencies = fft_frequency[freq_indices]
 
-    # Draw edges with varying colors or thickness based on magnitudes
     for idx, (i, j) in enumerate(edges):
         mag = edge_magnitudes[idx]
         freq = edge_frequencies[idx]
         color = freq_to_color(freq, mag)
-        thickness = int(3 + mag * 7)  # Increased base thickness and multiplier
-        pygame.draw.line(screen, color, projected_2d[i], projected_2d[j], thickness)
+
+        # Calculate thickness
+        thickness = int(THICKNESS_BASE + (mag * THICKNESS_SCALE))
+
+        # Frequency-based vibration
+        vibration_x = VIBRATION_AMPLITUDE * mag * np.sin(2 * np.pi * freq * current_time)
+        vibration_y = VIBRATION_AMPLITUDE * mag * np.cos(2 * np.pi * freq * current_time)
+
+        start_point = (int(projected_2d[i][0] + vibration_x), int(projected_2d[i][1] + vibration_y))
+        end_point = (int(projected_2d[j][0] + vibration_x), int(projected_2d[j][1] + vibration_y))
+
+        pygame.draw.line(screen, color, start_point, end_point, thickness)
 
 def main():
     screen, clock = initialize_pygame()

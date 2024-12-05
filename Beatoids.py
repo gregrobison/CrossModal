@@ -181,41 +181,25 @@ def visualize(screen, boids, data):
     smoothed_magnitudes = SMOOTHING_FACTOR * normalized_magnitude + (1 - SMOOTHING_FACTOR) * smoothed_magnitudes
 
     # Calculate audio-reactive parameters
-    # Use low frequencies to affect perception radius
-    bass_freq_indices = np.where((fft_frequency >= 20) & (fft_frequency <= 250))[0]
-    bass_magnitude = np.mean(smoothed_magnitudes[bass_freq_indices]) if len(bass_freq_indices) > 0 else 0
+    bass_indices = np.where((fft_frequency >= 20) & (fft_frequency <= 250))[0]
+    mid_indices = np.where((fft_frequency >= 250) & (fft_frequency <= 2000))[0]
+    treble_indices = np.where((fft_frequency >= 2000) & (fft_frequency <= 8000))[0]
 
-    # Use mid frequencies to affect size
-    mid_freq_indices = np.where((fft_frequency >= 250) & (fft_frequency <= 2000))[0]
-    mid_magnitude = np.mean(smoothed_magnitudes[mid_freq_indices]) if len(mid_freq_indices) > 0 else 0
+    bass_magnitude = np.mean(smoothed_magnitudes[bass_indices]) if len(bass_indices) > 0 else 0
+    mid_magnitude = np.mean(smoothed_magnitudes[mid_indices]) if len(mid_indices) > 0 else 0
+    treble_magnitude = np.mean(smoothed_magnitudes[treble_indices]) if len(treble_indices) > 0 else 0
 
-    # Use high frequencies to affect color
-    treble_freq_indices = np.where((fft_frequency >= 2000) & (fft_frequency <= 8000))[0]
-    treble_magnitude = np.mean(smoothed_magnitudes[treble_freq_indices]) if len(treble_freq_indices) > 0 else 0
+    perception_radius_factor = bass_magnitude * 100
+    size_factor = mid_magnitude * 200
+    color_shift = treble_magnitude * 200
 
-    # Increase reactivity
-    perception_radius_factor = bass_magnitude * 200  # Increased sensitivity
-    size_factor = mid_magnitude * 50  # Increased sensitivity for stronger pulsing
-    color_shift = treble_magnitude * 180  # Adjusted sensitivity for hue change
-
-    base_perception_radius = 120
-    base_size = 10
-
-    # Update and draw boids
     for boid in boids:
-        # Update boid parameters based on audio
-        boid.perception_radius = base_perception_radius + perception_radius_factor
-        boid.perception_radius = max(20, min(150, boid.perception_radius))
-
-        boid.size = base_size + size_factor
-        boid.size = max(2, min(20, boid.size))
-
-        # Modulate the boid's hue with the audio-reactive color shift
+        boid.perception_radius = max(30, min(150, 50 + perception_radius_factor))
+        boid.size = max(2, min(25, 5 + size_factor))
         hue = (boid.base_hue + color_shift) % 360
         color = pygame.Color(0)
         color.hsla = (hue, 100, 50, 100)
         boid.color = color
-
         boid.flock(boids)
         boid.update()
         boid.draw(screen)
@@ -223,28 +207,22 @@ def visualize(screen, boids, data):
 def main():
     screen, clock = initialize_pygame()
 
-    # Create boids
     boids = [Boid() for _ in range(NUM_BOIDS)]
 
-    print("Starting audio stream...")
     try:
         audio_stream = sd.InputStream(
             callback=audio_callback,
             channels=CHANNELS,
             samplerate=SAMPLE_RATE,
             blocksize=BLOCK_SIZE,
-            device=DEVICE,  # None to use default device
+            device=DEVICE
         )
         audio_stream.start()
     except Exception as e:
         print(f"Error starting audio stream: {e}")
         return
 
-    print("Entering main loop...")
     running = True
-    frame_count = 0
-    start_time = time.time()
-
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -256,16 +234,8 @@ def main():
         pygame.display.flip()
         clock.tick(FPS)
 
-        frame_count += 1
-        if frame_count % 60 == 0:
-            elapsed_time = time.time() - start_time
-            fps = frame_count / elapsed_time if elapsed_time > 0 else 0
-            print(f"FPS: {fps:.2f}")
-
-    print("Cleaning up...")
     audio_stream.stop()
     pygame.quit()
-    print(f"Script finished. Total frames: {frame_count}")
 
 if __name__ == "__main__":
     main()

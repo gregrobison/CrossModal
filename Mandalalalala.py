@@ -16,9 +16,9 @@ HEIGHT = 800
 FPS = 60
 
 # Visualization configuration
-SMOOTHING_FACTOR = 0.3
-MIN_FREQUENCY = 20
-MAX_FREQUENCY = 20000  # Full audible spectrum
+SMOOTHING_FACTOR = 0.2
+MIN_FREQUENCY = 50
+MAX_FREQUENCY = 2000  # Full audible spectrum
 
 # Global variables
 audio_data = np.zeros(BLOCK_SIZE)
@@ -37,7 +37,7 @@ def audio_callback(indata, frames, time, status):
 def initialize_pygame():
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    pygame.display.set_caption("Audio-Responsive Mandala with Moving Colors")
+    pygame.display.set_caption("Mandalalala")
     clock = pygame.time.Clock()
     return screen, clock
 
@@ -45,7 +45,7 @@ def draw_mandala(screen, frequencies, magnitudes, color_wave_phase):
     num_points = 360  # Number of points around the circle
     center_x = WIDTH // 2
     center_y = HEIGHT // 2
-    max_radius = min(WIDTH, HEIGHT) // 2 * 0.9  # Leave some padding
+    max_radius = min(WIDTH, HEIGHT) // 2 * 0.8  # Leave some padding
 
     angle_step = 2 * math.pi / num_points
 

@@ -18,8 +18,8 @@ FPS = 60
 # Visualization configuration
 DISCO_BALL_RADIUS = 200
 NUM_LATITUDE = 20  # Number of horizontal divisions
-NUM_LONGITUDE = 30  # Number of vertical divisions
-SMOOTHING_FACTOR = 0.3  # Reduced for faster response
+NUM_LONGITUDE = 20  # Number of vertical divisions
+SMOOTHING_FACTOR = 0.2  # Reduced for faster response
 
 # Global variables
 audio_data = np.zeros(BLOCK_SIZE)
@@ -78,7 +78,7 @@ class Panel:
         hue = normalized_freq * 360  # Map normalized frequency to hue (0 to 360 degrees)
 
         saturation = 100  # Full saturation
-        value = min(100, max(0, magnitude * 200))  # Adjusted for higher sensitivity
+        value = min(100, max(0, magnitude * 800))  # Adjusted for higher sensitivity
 
         self.color.hsva = (hue, saturation, value, 100)
 
@@ -141,13 +141,13 @@ def visualize(screen, panels, data):
 
     # Calculate rotation speed based on overall magnitude
     overall_magnitude = np.mean(smoothed_magnitudes)
-    rotation_speed_multiplier = 0.5  # Increased for higher sensitivity
+    rotation_speed_multiplier = 1  # Increased for higher sensitivity
     rotation_speed = max(0.1, overall_magnitude * rotation_speed_multiplier)
 
     # Get the current time in seconds
     current_time = pygame.time.get_ticks() / 1000.0
     # Compute rotation angles based on time and audio magnitude
-    angle_x = current_time * rotation_speed * 0.5  # Adjust as needed
+    angle_x = current_time * rotation_speed * 1  # Adjust as needed
     angle_y = current_time * rotation_speed
 
     # Create rotation matrices based on angles
